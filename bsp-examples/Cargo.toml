@@ -1,0 +1,17 @@
+[package]
+name = "bsp-examples"
+version = "0.1.0"
+edition.workspace = true
+license.workspace = true
+repository.workspace = true
+description = "Examples that use the board support package for the XIAO MG24 Sense itself: the LED, the button, the IMU and the microphone."
+
+# The BSPs, like the radio crate, are not on crates.io yet: they depend on it. Path dependencies until the radio is
+# published, which the README states plainly rather than hiding.
+[dependencies]
+xiao-mg24-bsp = { package = "efr32mg2x-xiao-bsp", path = "../../efr32mg24-rs/crates/xiao-mg24-bsp", features = ["sense", "stack"] }
+efr32mg24-radio = { package = "efr32mg2x-radio", path = "../../efr32mg24-rs/crates/efr32mg24-radio", features = ["ble", "gatt", "stack", "diag"] }
+motion-detection = { package = "efr32mg2x-motion-detection", path = "../../efr32mg24-rs/libraries/motion-detection" }
+cortex-m = { version = "0.7", features = ["critical-section-single-core"] }
+cortex-m-rt = "0.7"
+panic-halt = "0.2"

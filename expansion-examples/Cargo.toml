@@ -1,0 +1,15 @@
+[package]
+name = "expansion-examples"
+version = "0.1.0"
+edition.workspace = true
+license.workspace = true
+repository.workspace = true
+description = "Examples that use the Expansion Base BSP: the OLED, the BME680, the buzzer, the RTC and the Grove connectors."
+
+[dependencies]
+xiao-expansion-base-bsp = { package = "efr32mg2x-expansion-base-bsp", path = "../../efr32mg24-rs/crates/xiao-expansion-base-bsp", features = ["stack"] }
+efr32mg24-radio = { package = "efr32mg2x-radio", path = "../../efr32mg24-rs/crates/efr32mg24-radio", features = ["ble", "gatt", "stack", "diag"] }
+motion-detection = { package = "efr32mg2x-motion-detection", path = "../../efr32mg24-rs/libraries/motion-detection" }
+cortex-m = { version = "0.7", features = ["critical-section-single-core"] }
+cortex-m-rt = "0.7"
+panic-halt = "0.2"

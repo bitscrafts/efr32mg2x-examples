@@ -1,0 +1,11 @@
+# One target for the whole workspace: the Cortex-M33 on the board.
+[build]
+target = "thumbv8m.main-none-eabihf"
+
+[target.thumbv8m.main-none-eabihf]
+# --nmagic: without it the linker emits two PT_LOAD segments and the load address calculation puts .text at an
+# offset the bootloader does not expect. This is the flag the main project learned the hard way.
+rustflags = ["-C", "link-arg=-Tlink.x", "-C", "link-arg=--nmagic"]
+
+[env]
+DEFMT_LOG = "off"

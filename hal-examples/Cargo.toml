@@ -1,0 +1,13 @@
+[package]
+name = "hal-examples"
+version = "0.1.0"
+edition.workspace = true
+license.workspace = true
+repository.workspace = true
+description = "Examples that use the HAL: typed drivers for the same peripherals the PAC reaches by hand."
+
+[dependencies]
+efr32mg24-hal = { package = "efr32mg2x-hal", version = "0.1.0", features = ["rt"] }
+cortex-m = { version = "0.7", features = ["critical-section-single-core"] }
+cortex-m-rt = "0.7"
+panic-halt = "0.2"

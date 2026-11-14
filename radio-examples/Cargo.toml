@@ -1,0 +1,38 @@
+[package]
+name = "radio-examples"
+version = "0.1.0"
+edition.workspace = true
+license.workspace = true
+repository.workspace = true
+description = "Examples that use the radio layer: Bluetooth advertising, scanning, and GATT."
+
+# The radio crate is not on crates.io yet: it carries the vendor Bluetooth and RAIL blobs, which need the build-time
+# fetch to be in place first. Until then this points at the project tree, and the README says so.
+[dependencies]
+efr32mg24-radio = { package = "efr32mg2x-radio", path = "../../efr32mg24-rs/crates/efr32mg24-radio", features = ["ble", "gatt", "stack", "diag"] }
+efr32mg24-bluetooth-sys = { package = "efr32mg2x-bluetooth-sys", path = "../../efr32mg24-rs/crates/efr32mg24-bluetooth-sys" }
+efr32mg24-rail-sys = { package = "efr32mg2x-rail-sys", path = "../../efr32mg24-rs/crates/efr32mg24-rail-sys" }
+efr32mg24-hal = { package = "efr32mg2x-hal", version = "0.1.0", features = ["rt"] }
+cortex-m = { version = "0.7", features = ["critical-section-single-core"] }
+cortex-m-rt = "0.7"
+panic-halt = "0.2"
+
+[[example]]
+name = "ble_beacon"
+required-features = []
+
+[[example]]
+name = "ble_advertise_custom"
+required-features = []
+
+[[example]]
+name = "ble_scanner"
+required-features = []
+
+[[example]]
+name = "ble_gatt"
+required-features = []
+
+[[example]]
+name = "ble_diag"
+required-features = []

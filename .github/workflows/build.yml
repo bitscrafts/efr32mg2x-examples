@@ -1,0 +1,36 @@
+name: Examples
+
+on:
+  push:
+    branches: [master, main]
+  pull_request:
+
+jobs:
+  build:
+    name: build the layers that only need crates.io
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install the target
+        run: rustup target add thumbv8m.main-none-eabihf
+
+      - name: Build the PAC layer
+        run: cargo build --release --examples -p pac-examples
+
+      - name: Build the HAL layer
+        run: cargo build --release --examples -p hal-examples
+
+      - name: Every image must load above the bootloader
+        run: |
+          for f in target/thumbv8m.main-none-eabihf/release/examples/*; do
+            [ -x "$f" ] || continue
+            python3 elf-load-range.py "$f" | head -1
+          done | tee /tmp/ranges.txt
+          if grep -q "load_min=0x0800[0-5]" /tmp/ranges.txt; then
+            echo "an image loads inside the bootloader region"; exit 1
+          fi
+
+# The radio, board and Expansion Base layers are built locally, not here: they depend on the project tree because the
+# radio crate carries the vendor Bluetooth and RAIL binaries and is not published. A workflow that skipped them
+# silently would be worse than no workflow, so they are named in the README instead.
