@@ -11,11 +11,25 @@ cargo build --release --examples -p pac-examples          # 27 examples, no depe
 cargo build --release --examples -p hal-examples          # 7
 ```
 
-The image lands in `target/thumbv8m.main-none-eabihf/release/examples/<name>`. Flash it:
+The image lands in `target/thumbv8m.main-none-eabihf/release/examples/<name>`. Flash it with the script, which
+refuses a bad image instead of warning about it:
 
 ```bash
-probe-rs run --chip EFR32MG24B220F1536IM48 \
-    target/thumbv8m.main-none-eabihf/release/examples/pac_led_blink
+bash flash.sh target/thumbv8m.main-none-eabihf/release/examples/pac_led_blink            # dry run
+bash flash.sh target/thumbv8m.main-none-eabihf/release/examples/pac_led_blink --confirm  # writes
+```
+
+```
+load_min=0x08006000 load_max=0x08006377 size=888 segments=4
+=== probe
+  0d28:0204 DAPLink CMSIS-DAP (VID: 0x0d28, PID: 0x0204)
+DRY RUN. Nothing was written. Re-run with --confirm to flash.
+```
+
+If you would rather use `probe-rs` directly, run the check first; it is the same script:
+
+```bash
+python3 elf-load-range.py target/thumbv8m.main-none-eabihf/release/examples/pac_led_blink   # rc=1 = do not flash
 ```
 
 ## Why GitHub and not crates.io
