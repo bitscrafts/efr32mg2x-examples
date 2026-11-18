@@ -1,9 +1,11 @@
 # One crate per layer, so a reader testing the PAC pulls the PAC and nothing else.
 [workspace]
-members = ["pac-examples", "hal-examples"]
-# These three need a checkout of the main project beside this one, so they are not members: a clone without that tree
-# must still build the two published layers instead of failing to resolve the whole workspace.
-exclude = ["radio-examples", "bsp-examples", "expansion-examples"]
+members = ["pac-examples"]
+# hal-examples is excluded while efr32mg2x-hal is not on crates.io, and comes back as a member the day it is: cargo
+# resolves every member before building one, so a member whose dependency cannot be resolved fails the build of
+# all of them -- which is what the CI did until this line changed. The other three need a checkout of the main
+# project beside this one, so a clone without that tree still builds the published layers.
+exclude = ["hal-examples", "radio-examples", "bsp-examples", "expansion-examples"]
 resolver = "2"
 
 [workspace.package]
