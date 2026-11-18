@@ -42,13 +42,17 @@ the crate page would be a README and nothing else. A clone is three commands and
 
 ## One crate per layer
 
-| crate | depends on | what it exercises | examples |
-|---|---|---|---|
-| `pac-examples` | `efr32mg2x-pac` from crates.io | registers by hand: clocks, GPIO, I2C, timers, ADC | 27 |
-| `hal-examples` | `efr32mg2x-hal` from crates.io | the typed drivers on top of those registers | 7 |
-| `radio-examples` | `efr32mg2x-radio` — needs the project tree | Bluetooth: advertising, scanning, GATT, diagnostics | 7 |
-| `bsp-examples` | `efr32mg2x-xiao-bsp` — needs the project tree | the board itself: LED, button, IMU, microphone | 7 |
-| `expansion-examples` | `efr32mg2x-expansion-base-bsp` — needs the project tree | the Expansion Base: OLED, BME680, buzzer, RTC, Grove | 10 |
+| crate | depends on | crates.io | docs | what it exercises | examples |
+|---|---|---|---|---|---|
+| `pac-examples` | `efr32mg2x-pac` from crates.io | [![crates.io](https://img.shields.io/crates/v/efr32mg2x-pac.svg?v=1)](https://crates.io/crates/efr32mg2x-pac) | [![docs.rs](https://docs.rs/efr32mg2x-pac/badge.svg?v=1)](https://docs.rs/efr32mg2x-pac) | registers by hand: clocks, GPIO, I2C, timers, ADC | 27 |
+| `hal-examples` | `efr32mg2x-hal` from crates.io | [![crates.io](https://img.shields.io/crates/v/efr32mg2x-hal.svg?v=1)](https://crates.io/crates/efr32mg2x-hal) | [![docs.rs](https://docs.rs/efr32mg2x-hal/badge.svg?v=1)](https://docs.rs/efr32mg2x-hal) | the typed drivers on top of those registers | 7 |
+| `radio-examples` | `efr32mg2x-radio` — needs the project tree | [![crates.io](https://img.shields.io/crates/v/efr32mg2x-radio.svg?v=1)](https://crates.io/crates/efr32mg2x-radio) | [![docs.rs](https://docs.rs/efr32mg2x-radio/badge.svg?v=1)](https://docs.rs/efr32mg2x-radio) | Bluetooth: advertising, scanning, GATT, diagnostics | 7 |
+| `bsp-examples` | `efr32mg2x-xiao-bsp` — needs the project tree | [![crates.io](https://img.shields.io/crates/v/efr32mg2x-xiao-bsp.svg?v=1)](https://crates.io/crates/efr32mg2x-xiao-bsp) | [![docs.rs](https://docs.rs/efr32mg2x-xiao-bsp/badge.svg?v=1)](https://docs.rs/efr32mg2x-xiao-bsp) | the board itself: LED, button, IMU, microphone | 7 |
+| `expansion-examples` | `efr32mg2x-expansion-base-bsp` — needs the project tree | [![crates.io](https://img.shields.io/crates/v/efr32mg2x-expansion-base-bsp.svg?v=1)](https://crates.io/crates/efr32mg2x-expansion-base-bsp) | [![docs.rs](https://docs.rs/efr32mg2x-expansion-base-bsp/badge.svg?v=1)](https://docs.rs/efr32mg2x-expansion-base-bsp) | the Expansion Base: OLED, BME680, buzzer, RTC, Grove | 10 |
+
+A badge that reads **not found** is a layer that is not on crates.io yet. The examples for it still build from a
+checkout of the main project beside this one; what is missing is the published crate, not the code. The PAC is
+published, which is why its two badges resolve and the others do not.
 
 The first two are workspace members and build from a plain clone. The other three are **excluded** from the workspace
 because their dependencies point outside this repository: with a checkout of the main project beside this one they build
