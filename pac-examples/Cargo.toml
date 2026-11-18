@@ -7,7 +7,7 @@ repository.workspace = true
 description = "Examples that use only the EFR32MG24 PAC: registers, no drivers, no radio."
 
 [dependencies]
-efr32mg2x-pac = { version = "0.1.0", features = ["rt"] }
+efr32mg2x-pac = { version = "0.1.1", features = ["rt"] }
 cortex-m = { version = "0.7", features = ["critical-section-single-core"] }
 cortex-m-rt = "0.7"
 panic-halt = "0.2"
